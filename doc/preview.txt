@@ -1,0 +1,119 @@
+*preview.txt*	For Vim version 7.3.	Last Change: 2010 Nov 28
+
+Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
+Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
+Version:     0.1
+Homepage:    http://github.com/greyblake/vim-preview
+License:     GPLv2+ -- look it up.
+Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
+
+             This program is free software; you can redistribute it and/or
+             modify it under the terms of the GNU General Public License as
+             published by the Free Software Foundation; either version 2 of
+             the License, or (at your option) any later version.
+
+             This program is distributed in the hope that it will be useful,
+             but WITHOUT ANY WARRANTY; without even the implied warranty of
+             MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+             General Public License for more details.
+
+             You should have received a copy of the GNU General Public License
+             along with this program; if not, write to the Free Software
+             Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+             MA 02111-1307 USA
+
+==============================================================================
+1. Contents                                        *Preview* *PreviewContents*
+
+    1. Contents .............................. |PreviewContents|
+    2. Intro ................................. |PreviewIntro|
+    3. Supported Formats ..................... |PreviewFormats|
+    4. Dependencies .......................... |PreviewDeps|
+    5. Configurations ........................ |PreviewConfig|
+	5.1 preview_browsers ................. |PreviewBrowsers| 
+	5.2 preview_css_path ................. |PreviewCSSPath| 
+    6. Mapping ............................... |PreviewMapping|
+    7. Known Bugs ............................ |PreviewBugs|
+    8. Contact ............................... |PreviewContact|
+
+
+==============================================================================
+2. Intro                                                        *PreviewIntro*
+
+Preview plugin is a tool developed to help you to preview markup files such as
+*.markdown, *.rdoc, *.textile and *.html when you are editing them. It builds
+html files and opens them in your browser.
+
+==============================================================================
+3. Supported Formats                                          *PreviewFormats*
+
+The plugin supports the next formats:
+    * markdown(md, mkd, mkdn, mdown)       depends on 'bluecloth' ruby gem
+    * rdoc                                 depends on 'github-markup' ruby gem
+    * textile                              depends on 'RedCloth' ruby gem
+    * html(htm)
+
+==============================================================================
+4. Dependencies                                                  *PreviewDeps*
+
+The plugin requires a builtin ruby interpreter. It means that your Vim
+should be compiled with '--enable-rubyinterp' option.
+To find out does you Vim have builtin ruby interpreter you can do the next: >
+    :echo has('ruby')
+<
+If output is '1' the ruby interpreter is builtin.
+
+The second thing you should verify is that you have installed all necessary 
+ruby gems. Please see |PreviewFormats| section to find out what gems you need.
+
+==============================================================================
+5. Configurations                                              *PreviewConfig*
+
+You can tweak the behaviour of preview plugin by setting a few variables in
+you vimrc file. For example >
+    let g:PreviewBrowsers='safari,firefox'
+    let g:PreviewCSSPath='/path/to/css/file'
+>
+------------------------------------------------------------------------------
+5.1 g:PreviewBrowsers                                        *PreviewBrowsers*
+
+Set browsers what will be used to open generated html file. Values should be
+comma separated. The highest priority has the first value.
+For example: >
+    let g:PreviewBrowsers='safari,firefox' 
+<
+Will try to use safari first. If command 'safari' does not exist 'firefox' will
+be used.
+Default: firefox,safari,epiphany,google-chrome,opera
+
+------------------------------------------------------------------------------
+5.2 g:PreviewCSSPath                                          *PreviewCSSPath*
+
+Set a path to user's CSS file. If it's empty the plugin will use builtin 
+styles.
+Default: empty
+
+==============================================================================
+6. Mapping                                                    *PreviewMapping*
+
+Default mapping to preview file is <Leader>P .
+You can easy map it to other keys. For example <
+    :nmap <Leader>p :Preview<CR>
+>
+
+==============================================================================
+7. Known Bugs                                                    *PreviewBugs*
+
+There is no known bugs. If you found a bug please report it.
+See |PreviewContact| for a contact.
+
+==============================================================================
+8. Contact                                                    *PreviewContact*
+
+To contact the author (Sergey Potapov), please email:
+blake131313 AT gmail DOT com
+
+I'll appreciate any suggestions or improvements offered for the plugin.
+
+
+vim:tw=78:ts=8:ft=help:norl:
