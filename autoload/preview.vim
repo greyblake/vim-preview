@@ -170,7 +170,7 @@ class Preview
     require DEPENDECIES[format][:require]
     true
   rescue LoadError
-    error "To preview #{format} format you need to install #{DEPENDECIES[format][gem]} gem"
+    error "To preview #{format} format you need to install #{DEPENDECIES[format][:gem]} gem"
     false
   end
 
