@@ -1,4 +1,4 @@
-*preview.txt*	For Vim version 7.3.	Last Change: 2010 Nov 28
+*preview.txt*	For Vim version 7.3.	Last Change: 2010 Nov 29
 
 Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
 Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
@@ -23,18 +23,28 @@ Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
              MA 02111-1307 USA
 
 ==============================================================================
-1. Contents                                        *Preview* *PreviewContents*
+1. Contents                                                  *PreviewContents*
 
     1. Contents .............................. |PreviewContents|
     2. Intro ................................. |PreviewIntro|
     3. Supported Formats ..................... |PreviewFormats|
     4. Dependencies .......................... |PreviewDeps|
     5. Configurations ........................ |PreviewConfig|
-	5.1 preview_browsers ................. |PreviewBrowsers| 
-	5.2 preview_css_path ................. |PreviewCSSPath| 
-    6. Mapping ............................... |PreviewMapping|
-    7. Known Bugs ............................ |PreviewBugs|
-    8. Contact ............................... |PreviewContact|
+	5.1 PreviewBrowsers .................. |PreviewBrowsers| 
+	5.2 PreviewCSSPath ................... |PreviewCSSPath| 
+	5.3 PreviewMarkdownExt ............... |PreviewMarkdownExt|
+	5.4 PreviewTextileExt ................ |PreviewTextileExt|
+	5.5 PreviewRdocExt ................... |PreviewRdocExt|
+	5.6 PreviewHtmlExt ................... |PreviewHtmlExt|
+    6. Commands .............................. |PreviewCommands|
+	6.1 Preview .......................... |Preview|
+	6.2 PreviewMarkdown .................. |PreviewMarkdown|
+	6.3 PreviewTextile ................... |PreviewTextile|
+	6.4 PreviewRdoc ...................... |PreviewRdoc|
+	6.5 PreviewHtml ...................... |PreviewHtml|
+    7. Mapping ............................... |PreviewMapping|
+    8. Known Bugs ............................ |PreviewBugs|
+    9. Contact ............................... |PreviewContact|
 
 
 ==============================================================================
@@ -44,6 +54,7 @@ Preview plugin is a tool developed to help you to preview markup files such as
 *.markdown, *.rdoc, *.textile and *.html when you are editing them. It builds
 html files and opens them in your browser.
 
+
 ==============================================================================
 3. Supported Formats                                          *PreviewFormats*
 
@@ -52,6 +63,7 @@ The plugin supports the next formats:
     * rdoc                                 depends on 'github-markup' ruby gem
     * textile                              depends on 'RedCloth' ruby gem
     * html(htm)
+
 
 ==============================================================================
 4. Dependencies                                                  *PreviewDeps*
@@ -66,13 +78,15 @@ If output is '1' the ruby interpreter is builtin.
 The second thing you should verify is that you have installed all necessary 
 ruby gems. Please see |PreviewFormats| section to find out what gems you need.
 
+
 ==============================================================================
 5. Configurations                                              *PreviewConfig*
 
 You can tweak the behaviour of preview plugin by setting a few variables in
-you vimrc file. For example >
+you vimrc file. For example: >
     let g:PreviewBrowsers='safari,firefox'
     let g:PreviewCSSPath='/path/to/css/file'
+    let g:PreviewTextileExt='textile,txt'
 >
 ------------------------------------------------------------------------------
 5.1 g:PreviewBrowsers                                        *PreviewBrowsers*
@@ -93,22 +107,90 @@ Set a path to user's CSS file. If it's empty the plugin will use builtin
 styles.
 Default: empty
 
+------------------------------------------------------------------------------
+5.3 g:PreviewMarkdownExt                                  *PreviewMarkdownExt*
+
+Specifies file extensions separated by comma which should be handled as
+markdown.
+Default: markdown,md,mkd,mkdn,mdown
+
+------------------------------------------------------------------------------
+5.4 g:PreviewTextileExt                                    *PreviewTextileExt*
+
+Specifies file extensions separated by comma which should be handled as
+textile.
+Default: textile
+
+------------------------------------------------------------------------------
+5.5 g:PreviewRdocExt                                          *PreviewRdocExt*
+
+Specifies file extensions separated by comma which should be handled as rdoc.
+Default: rdoc
+
+------------------------------------------------------------------------------
+5.6 g:PreviewHtmlExt                                          *PreviewHtmlExt*
+
+Specifies file extensions separated by comma which should be handled as html.
+Default: html,htm
+
+
 ==============================================================================
-6. Mapping                                                    *PreviewMapping*
+6. Commands                                                  *PreviewCommands*
+
+Preview plugin provides a set of commands for you. You can use them in command
+mode or map to keys.
+
+------------------------------------------------------------------------------
+6.1 Preview
+
+Defines how to handle file depending on its format and Preview*Ext variables.
+If Preview*Ext variables doesn't have name of appropriate file extension it
+gives a message.
+
+------------------------------------------------------------------------------
+6.2 PreviewMarkdown                                          *PreviewMarkdown*
+
+Preview current file as markdown.
+
+------------------------------------------------------------------------------
+6.3 PreviewTextile                                            *PreviewTextile*
+
+Preview current file as textile.
+
+------------------------------------------------------------------------------
+6.4 PreviewRdoc                                                  *PreviewRdoc*
+
+Preview current file as rdoc.
+
+------------------------------------------------------------------------------
+6.5 PreviewHtml                                                  *PreviewHtml*
+
+Preview current file as html. File will be opened without any converting.
+
+
+==============================================================================
+7. Mapping                                                    *PreviewMapping*
 
 Default mapping to preview file is <Leader>P .
-You can easy map it to other keys. For example <
+You can easy map it to other keys. For example >
     :nmap <Leader>p :Preview<CR>
->
+<
+Also you can map some other commands which is not mapped by default. E.g. >
+    :nmap <Leader>Pm :PreviewMarkdown<CR>
+    :nmap <Leader>Pt :PreviewTextile<CR>
+    :nmap <Leader>Pr :PreviewRdoc<CR>
+    :nmap <Leader>Ph :PreviewHtml<CR>
+<
 
 ==============================================================================
-7. Known Bugs                                                    *PreviewBugs*
+8. Known Bugs                                                    *PreviewBugs*
 
 There is no known bugs. If you found a bug please report it.
 See |PreviewContact| for a contact.
 
+
 ==============================================================================
-8. Contact                                                    *PreviewContact*
+9. Contact                                                    *PreviewContact*
 
 To contact the author (Sergey Potapov), please email:
 blake131313 AT gmail DOT com

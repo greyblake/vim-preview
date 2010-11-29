@@ -24,20 +24,60 @@
 " ============================================================================
 
 
-function! s:Preview()
+function s:PreviewVerifyRuby()
     if has('ruby')
-        call preview#show()
+        return 1
     else
         echo 'To use Preview plugin you should compile vim with --enable-rubyinterp option'
+        return 0
     endif
 endfunction
 
+function! s:Preview()
+    if(s:PreviewVerifyRuby())
+        call preview#show()
+    endif
+endfunction
+
+function! s:PreviewMarkdown()
+    if(s:PreviewVerifyRuby())
+        call preview#show_markdown()
+    endif
+endfunction
+
+function! s:PreviewTextile()
+    if(s:PreviewVerifyRuby())
+        call preview#show_textile()
+    endif
+endfunction
+
+function! s:PreviewRdoc()
+    if(s:PreviewVerifyRuby())
+        call preview#show_rdoc()
+    endif
+endfunction
+
+function! s:PreviewHtml()
+    if(s:PreviewVerifyRuby())
+        call preview#show_html()
+    endif
+endfunction
+
+
 " Commands
-command! Preview call s:Preview()
+command! Preview         call s:Preview()
+command! PreviewMarkdown call s:PreviewMarkdown()
+command! PreviewTextile  call s:PreviewTextile()
+command! PreviewRdoc     call s:PreviewRdoc()
+command! PreviewHtml     call s:PreviewHtml()
 
 " Default options
-let g:PreviewBrowsers = 'firefox,safari,epiphany,google-chrome,opera'
-let g:PreviewCSSPath  = ''
+let g:PreviewBrowsers    = 'firefox,safari,epiphany,google-chrome,opera'
+let g:PreviewCSSPath     = ''
+let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'
+let g:PreviewTextileExt  = 'textile'
+let g:PreviewRdocExt     = 'rdoc'
+let g:PreviewHtmlExt     = 'html,htm'
 
 " Default mapping
 :nmap <Leader>P :Preview<CR>

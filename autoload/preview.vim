@@ -23,7 +23,6 @@
 "              MA 02111-1307 USA
 " ============================================================================
 
-
 ruby << END_OF_RUBY
 require 'singleton'
 require 'tempfile'
@@ -33,8 +32,12 @@ class Preview
   include Singleton
 
   OPTIONS = {
-    :browsers => "g:PreviewBrowsers",
-    :css_path => "g:PreviewCSSPath"
+    :browsers     => "g:PreviewBrowsers",
+    :css_path     => "g:PreviewCSSPath",
+    :markdown_ext => "g:PreviewMarkdownExt",
+    :textile_ext  => "g:PreviewTextileExt",
+    :rdoc_ext     => "g:PreviewRdocExt",
+    :html_ext     => "g:PreviewHtmlExt"
   }
 
   DEPENDECIES = {
@@ -46,18 +49,14 @@ class Preview
 
   def show
     update_fnames
-    case @ftype
-    when /^(md|mkdn?|mdown|markdown)$/i
-      show_markdown  
-    when /^html?\d?$/i
-      show_html
-    when /^rdoc$/i
-      show_rdoc
-    when /^textile$/i
-      show_textile
-    else
-      error "don't know how to handle .#{@ftype} format"
+    ext_opts = OPTIONS.keys.find_all{|k| k.to_s =~ /_ext$/}
+    ext_opts.each do |opt|
+      if exts_match?(option(opt).split(','))
+        send "show_" + opt.to_s[/^(.*)_ext$/, 1]
+        return
+      end
     end
+    error "don't know how to handle .#{@ftype} format"
   end
 
   def show_markdown
@@ -116,6 +115,10 @@ class Preview
     else
       raise "Undefined application type #{type}" 
     end
+  end
+
+  def exts_match?(exts)
+    exts.find{|ext| ext.downcase == @ftype.downcase}
   end
 
   def tmp_write(data)
@@ -209,6 +212,30 @@ END_OF_RUBY
 
 function! preview#show()
 ruby << END_OF_RUBY
-   Preview.instance.show
+    Preview.instance.show
+END_OF_RUBY
+endfunction
+
+function! preview#show_markdown()
+ruby << END_OF_RUBY
+    Preview.instance.show_markdown
+END_OF_RUBY
+endfunction
+
+function! preview#show_textile()
+ruby << END_OF_RUBY
+    Preview.instance.show_textile
+END_OF_RUBY
+endfunction
+
+function! preview#show_rdoc()
+ruby << END_OF_RUBY
+    Preview.instance.show_rdoc
+END_OF_RUBY
+endfunction
+
+function! preview#show_html()
+ruby << END_OF_RUBY
+    Preview.instance.show_html
 END_OF_RUBY
 endfunction
