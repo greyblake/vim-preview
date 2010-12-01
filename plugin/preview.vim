@@ -72,12 +72,24 @@ command! PreviewRdoc     call s:PreviewRdoc()
 command! PreviewHtml     call s:PreviewHtml()
 
 " Default options
-let g:PreviewBrowsers    = 'firefox,safari,epiphany,google-chrome,opera'
-let g:PreviewCSSPath     = ''
-let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'
-let g:PreviewTextileExt  = 'textile'
-let g:PreviewRdocExt     = 'rdoc'
-let g:PreviewHtmlExt     = 'html,htm'
+if(!exists('g:PreviewBrowsers'))
+    let g:PreviewBrowsers    = 'firefox,safari,epiphany,google-chrome,opera'
+endif
+if(!exists('g:PreviewCSSPath'))
+    let g:PreviewCSSPath     = ''
+endif
+if(!exists('g:PreviewMarkdownExt'))
+    let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'
+endif
+if(!exists('g:PreviewTextileExt'))
+    let g:PreviewTextileExt  = 'textile'
+endif
+if(!exists('g:PreviewRdocExt'))
+    let g:PreviewRdocExt     = 'rdoc'
+endif
+if(!exists('g:PreviewHtmlExt'))
+    let g:PreviewHtmlExt     = 'html,htm'
+endif
 
 " Default mapping
 :nmap <Leader>P :Preview<CR>
