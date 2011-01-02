@@ -44,7 +44,8 @@ Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
 	6.5 PreviewHtml ...................... |PreviewHtml|
     7. Mapping ............................... |PreviewMapping|
     8. Known Bugs ............................ |PreviewBugs|
-    9. Contact ............................... |PreviewContact|
+    9. Credits ............................... |PreviewCredits|
+    10. Contact .............................. |PreviewContact|
 
 
 ==============================================================================
@@ -190,7 +191,13 @@ See |PreviewContact| for a contact.
 
 
 ==============================================================================
-9. Contact                                                    *PreviewContact*
+9. Credits                                                     *PreviewCredits*
+
+    * Donald Ephraim Curtis (some support for OSX and Safari)
+
+
+==============================================================================
+10. Contact                                                    *PreviewContact*
 
 To contact the author (Sergey Potapov), please email:
 blake131313 AT gmail DOT com

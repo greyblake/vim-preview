@@ -1,11 +1,13 @@
 # Preview - Vim plugin for previewing markup files
 by Sergey Potapov (aka Blake)
 
+
 ## Intro 
 
 Preview plugin is a tool developed to help you to preview markup files such as
 .markdown, .rdoc, .textile and .html when you are editing them. It builds
 html files and opens them in your browser.
+
 
 ## Supported Formats
 
@@ -15,6 +17,7 @@ The plugin supports the next formats:
 * rdoc - depends on `github-markup` ruby gem
 * textile - depends on `RedCloth` ruby gem
 * html(htm)
+
 
 ## Dependencies
 
@@ -28,15 +31,23 @@ If output is `1` the ruby interpreter is builtin.
 The second thing you should verify is that you have installed all necessary 
 ruby gems. Please see "Supported Formats" section to find out what gems you need.
 
+
 ## Installation
 
 To install the plugin just copy `autoload`, `plugin`, `doc` directories into your .vim directory.
+
 
 ## Usage
 
 * \<Leader\>P - will open current file converted to HTML in your browser.
 
 I want to remind that \<Leader\> in most cases is "\\" key.
+
+
+## Credits
+
+* [Donald Ephraim Curtis](https://github.com/decurtis) (some support for OSX and Safari)
+
 
 ## License
 

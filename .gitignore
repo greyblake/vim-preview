@@ -2,3 +2,4 @@
 *.md
 *.textile
 *.swp
+/doc/tags
