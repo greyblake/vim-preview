@@ -88,9 +88,10 @@ class Preview
   private
 
   # TODO: handle errors when app can't be opened
-  def show_with(app_type)
-    path = tmp_write(yield)
-    app = get_apps_by_type(app_type).find{|app| system("which #{app} 2>1 1> /dev/null")}
+  def show_with(app_type, ext="html")
+    path = tmp_write(ext, yield)
+    app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} 2>1 1> /dev/null")}
+    puts path
     if app
       fork{exec "#{app} #{path} 2>1 1> /dev/null"}
     else
@@ -121,8 +122,9 @@ class Preview
     exts.find{|ext| ext.downcase == @ftype.downcase}
   end
 
-  def tmp_write(data)
-    tmp = Tempfile.new(@base_name)
+  def tmp_write(ext, data)
+    tmp = File.open(File.join(Dir::tmpdir, [@base_name,ext].join('.')), 'w')
+    #tmp = Tempfile.new(@base_name)
     tmp.write(data)
     tmp.close
     tmp.path
