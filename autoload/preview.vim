@@ -91,8 +91,7 @@ class Preview
   # TODO: handle errors when app can't be opened
   def show_with(app_type, ext="html")
     path = tmp_write(ext, yield)
-    app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} >& /dev/null")}
-    #puts path
+    app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} &> /dev/null")}
     if app
       fork{exec "#{app} #{Regexp.escape(path)} 2>&1 1>/dev/null"}
     else
