@@ -91,10 +91,10 @@ class Preview
   # TODO: handle errors when app can't be opened
   def show_with(app_type, ext="html")
     path = tmp_write(ext, yield)
-    app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} 2>1 1> /dev/null")}
+    app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} >& /dev/null")}
     #puts path
     if app
-      fork{exec "#{app} #{Regexp.escape(path)} 2>1 1> /dev/null"}
+      fork{exec "#{app} #{Regexp.escape(path)} 2>&1 1>/dev/null"}
     else
       error "any of apllications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
     end
