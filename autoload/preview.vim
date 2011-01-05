@@ -93,10 +93,11 @@ class Preview
     path = tmp_write(ext, yield)
     app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} &> /dev/null")}
     if app
-      fork do
-        STDOUT.reopen("/dev/null", "w")
-        exec "#{app} #{Regexp.escape(path)}"
-       end
+      pid = fork do
+        [$stdout, $stderr].each { |io| io.reopen("/dev/null", "w") }
+        exec app, path
+      end
+      Process.detach pid # avoid zombies
     else
       error "any of apllications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
     end
