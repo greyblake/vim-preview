@@ -94,7 +94,7 @@ class Preview
     app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} &> /dev/null")}
     if app
       pid = fork do
-        [$stdout, $stderr].each { |io| io.reopen("/dev/null", "w") }
+        [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
         exec app, path
       end
       Process.detach pid # avoid zombies
