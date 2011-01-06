@@ -44,9 +44,21 @@ To install the plugin just copy `autoload`, `plugin`, `doc` directories into you
 I want to remind that \<Leader\> in most cases is "\\" key.
 
 
+## Know bugs
+
+* When forked application(browser) is closed earlier than Vim it becomes a zombie. Some work is done about it. See Preview#show_with method.
+
+
+## TODO
+
+* Make more unique names for temporary files than just base name ending with `.html`. There should be `vim_preview` prefix, PID of Vim and number of buffer to guarantee avoiding conflicts.
+* Add ability to use alternative gems for processing markdown and other formats.
+
+
 ## Credits
 
-* [Donald Ephraim Curtis](https://github.com/decurtis) (some support for OSX and Safari)
+* [Donald Ephraim Curtis](https://github.com/decurtis) - some support for OSX and Safari, fixing bugs
+* [Sung Pae](https://github.com/guns) - fixing bugs
 
 
 ## License

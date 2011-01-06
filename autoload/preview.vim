@@ -2,7 +2,7 @@
 " File:        preview.vim
 " Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
 " Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
-" Version:     0.1
+" Version:     0.4
 " Homepage:    http://github.com/greyblake/vim-preview
 " License:     GPLv2+ -- look it up.
 " Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
@@ -89,6 +89,7 @@ class Preview
   private
 
   # TODO: handle errors when app can't be opened
+  # TODO: make zombies be always handled
   def show_with(app_type, ext="html")
     path = tmp_write(ext, yield)
     app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} &> /dev/null")}
@@ -97,7 +98,10 @@ class Preview
         [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
         exec app, path
       end
-      Process.detach pid # avoid zombies
+      # Avoid zombies.
+      # Not sure that it works, because main thread finished earlier than 
+      # the forked application finished
+      Process.detach pid
     else
       error "any of apllications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
     end
