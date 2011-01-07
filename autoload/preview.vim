@@ -96,7 +96,7 @@ class Preview
     if app
       pid = fork do
         [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
-        exec app, path
+        exec [app, path].join(' ')
       end
       # Avoid zombies.
       # Not sure that it works, because main thread finished earlier than 
