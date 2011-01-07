@@ -97,7 +97,7 @@ class Preview
       child = fork do
         grandchild = fork do
           [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
-          exec [app, path].join(' ')
+          exec "#{app} #{Regexp.escape(path)}"
         end
         Process.detach grandchild
       end
