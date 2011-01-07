@@ -46,7 +46,7 @@ I want to remind that \<Leader\> in most cases is "\\" key.
 
 ## Know bugs
 
-* When forked application(browser) is closed earlier than Vim it becomes a zombie. Some work is done about it. See Preview#show_with method.
+If you found a bug, please report it. Or better send be a pull request:)
 
 
 ## TODO
