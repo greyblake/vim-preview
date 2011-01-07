@@ -28,6 +28,7 @@ ruby << END_OF_RUBY
 require 'singleton'
 require 'tempfile'
 require 'rubygems'
+require 'shellwords'
 
 class Preview
   include Singleton
@@ -97,7 +98,7 @@ class Preview
       child = fork do
         grandchild = fork do
           [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
-          exec "#{app} #{Regexp.escape(path)}"
+          exec *(app.shellsplit << path)
         end
         Process.detach grandchild
       end
