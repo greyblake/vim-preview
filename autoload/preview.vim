@@ -93,11 +93,16 @@ class Preview
     path = tmp_write(ext, yield)
     app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} &> /dev/null")}
     if app
-      pid = fork do
-        [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
-        exec app, path
+      # double fork to avoid zombies
+      child = fork do
+        grandchild = fork do
+          [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
+          exec app, path
+        end
+        Process.detach grandchild
       end
-      Process.wait pid # avoid zombies
+      # child terminates quickly, so block and reap
+      Process.wait child
     else
       error "any of apllications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
     end
