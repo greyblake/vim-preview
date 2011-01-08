@@ -73,7 +73,7 @@ command! PreviewHtml     call s:PreviewHtml()
 
 " Default options
 if(!exists('g:PreviewBrowsers'))
-    let g:PreviewBrowsers    = 'firefox,safari,epiphany,google-chrome,opera'
+    let g:PreviewBrowsers    = 'firefox,chromium-browser,safari,epiphany,google-chrome,opera'
 endif
 if(!exists('g:PreviewCSSPath'))
     let g:PreviewCSSPath     = ''
