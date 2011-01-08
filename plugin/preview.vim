@@ -79,7 +79,7 @@ if(!exists('g:PreviewCSSPath'))
     let g:PreviewCSSPath     = ''
 endif
 if(!exists('g:PreviewMarkdownExt'))
-    let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'
+    let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown,ronn'
 endif
 if(!exists('g:PreviewTextileExt'))
     let g:PreviewTextileExt  = 'textile'
