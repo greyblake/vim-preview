@@ -94,7 +94,8 @@ class Preview
   def show_ronn
     return unless load_dependencies(:ronn)
     show_with(:browser) do
-      wrap_html Ronn::Document.new(content).to_html
+      tmp_file = Tempfile.new(@base_name + ".ronn"){|f| f.write(content)}
+      wrap_html Ronn::Document.new(tmp_file.path).to_html
     end
   end
   
