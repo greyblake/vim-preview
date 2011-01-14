@@ -17,6 +17,7 @@ The plugin supports the next formats:
 * rdoc - depends on `github-markup` ruby gem
 * textile - depends on `RedCloth` ruby gem
 * html(htm)
+* ronn - depends on `ronn` ruby gem
 
 
 ## Dependencies

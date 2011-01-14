@@ -39,6 +39,7 @@ class Preview
     :markdown_ext => "g:PreviewMarkdownExt",
     :textile_ext  => "g:PreviewTextileExt",
     :rdoc_ext     => "g:PreviewRdocExt",
+    :ronn_ext     => "g:PreviewRonnExt",
     :html_ext     => "g:PreviewHtmlExt"
   }
 
@@ -46,7 +47,8 @@ class Preview
     # :format => {:gem => 'name of gem'  , :require => 'file to require'}
     :markdown => {:gem => 'bluecloth'    , :require => 'bluecloth'      },
     :textile  => {:gem => 'RedCloth'     , :require => 'redcloth'       },
-    :rdoc     => {:gem => 'github-markup', :require => 'github/markup'  }
+    :rdoc     => {:gem => 'github-markup', :require => 'github/markup'  },
+    :ronn     => {:gem => 'ronn'         , :require => 'ronn'           }
   }
 
   def show
@@ -85,7 +87,16 @@ class Preview
       wrap_html RedCloth.new(content).to_html
     end
   end
+  
+  # Syntax for Ronn::Document.new is different as it expects (content) to be a file
+  # TODO: Work out how to read in a string.
 
+  def show_ronn
+    return unless load_dependencies(:ronn)
+    show_with(:browser) do
+      wrap_html Ronn::Document.new(content).to_html
+    end
+  end
   
   private
 
@@ -264,6 +275,13 @@ function! preview#show_rdoc()
 call s:init()
 ruby << END_OF_RUBY
     Preview.instance.show_rdoc
+END_OF_RUBY
+endfunction
+
+function! preview#show_ronn()
+call s:init()
+ruby << END_OF_RUBY
+    Preview.instance.show_ronn
 END_OF_RUBY
 endfunction
 

@@ -36,12 +36,14 @@ Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
 	5.4 PreviewTextileExt ................ |PreviewTextileExt|
 	5.5 PreviewRdocExt ................... |PreviewRdocExt|
 	5.6 PreviewHtmlExt ................... |PreviewHtmlExt|
+        5.7 PreviewRonnExt ................... |PreviewRonnExt|
     6. Commands .............................. |PreviewCommands|
 	6.1 Preview .......................... |Preview|
 	6.2 PreviewMarkdown .................. |PreviewMarkdown|
 	6.3 PreviewTextile ................... |PreviewTextile|
 	6.4 PreviewRdoc ...................... |PreviewRdoc|
 	6.5 PreviewHtml ...................... |PreviewHtml|
+        6.6 PreviewRonn ...................... |PreviewRonn|
     7. Mapping ............................... |PreviewMapping|
     8. Known Bugs ............................ |PreviewBugs|
     9. Credits ............................... |PreviewCredits|
@@ -63,6 +65,7 @@ The plugin supports the next formats:
     * markdown(md, mkd, mkdn, mdown)       depends on 'bluecloth' ruby gem
     * rdoc                                 depends on 'github-markup' ruby gem
     * textile                              depends on 'RedCloth' ruby gem
+    * ronn                                 depends on 'ronn' ruby gem
     * html(htm)
 
 
@@ -99,7 +102,7 @@ For example: >
 <
 Will try to use safari first. If command 'safari' does not exist 'firefox' will
 be used.
-Default: firefox,safari,epiphany,google-chrome,opera
+Default: firefox,safari,chromium-browser,epiphany,google-chrome,opera
 
 ------------------------------------------------------------------------------
 5.2 g:PreviewCSSPath                                          *PreviewCSSPath*
@@ -134,6 +137,12 @@ Default: rdoc
 Specifies file extensions separated by comma which should be handled as html.
 Default: html,htm
 
+------------------------------------------------------------------------------
+5.7 g:PreviewRonnExt                                          *PreviewRonnExt*
+
+Specifies file extensions separated by comma which should be handled as ronn.
+Default: ronn
+
 
 ==============================================================================
 6. Commands                                                  *PreviewCommands*
@@ -167,6 +176,11 @@ Preview current file as rdoc.
 6.5 PreviewHtml                                                  *PreviewHtml*
 
 Preview current file as html. File will be opened without any converting.
+
+------------------------------------------------------------------------------
+6.6 PreviewRonn                                                  *PreviewRonn*
+
+Preview current file as ronn.
 
 
 ==============================================================================

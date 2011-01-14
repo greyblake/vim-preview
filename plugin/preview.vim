@@ -63,6 +63,11 @@ function! s:PreviewHtml()
     endif
 endfunction
 
+function! s:PreviewRonn()
+    if(s:PreviewVerifyRuby())
+        call preview#show_ronn()
+    endif
+endfunction
 
 " Commands
 command! Preview         call s:Preview()
@@ -70,16 +75,17 @@ command! PreviewMarkdown call s:PreviewMarkdown()
 command! PreviewTextile  call s:PreviewTextile()
 command! PreviewRdoc     call s:PreviewRdoc()
 command! PreviewHtml     call s:PreviewHtml()
+command! PreviewRonn     call s:PreviewRonn()
 
 " Default options
 if(!exists('g:PreviewBrowsers'))
-    let g:PreviewBrowsers    = 'firefox,chromium-browser,safari,epiphany,google-chrome,opera'
+    let g:PreviewBrowsers    = 'firefox,safari,chromium-browser,epiphany,google-chrome,opera'
 endif
 if(!exists('g:PreviewCSSPath'))
     let g:PreviewCSSPath     = ''
 endif
 if(!exists('g:PreviewMarkdownExt'))
-    let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown,ronn'
+    let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'
 endif
 if(!exists('g:PreviewTextileExt'))
     let g:PreviewTextileExt  = 'textile'
@@ -89,6 +95,9 @@ if(!exists('g:PreviewRdocExt'))
 endif
 if(!exists('g:PreviewHtmlExt'))
     let g:PreviewHtmlExt     = 'html,htm'
+endif
+if(!exists('g:PreviewRonnExt'))
+    let g:PreviewRonnExt     = 'ronn'
 endif
 
 " Default mapping
