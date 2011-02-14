@@ -74,7 +74,7 @@ The plugin supports the next formats:
 
 The plugin requires a builtin ruby interpreter. It means that your Vim
 should be compiled with '--enable-rubyinterp' option.
-To find out does you Vim have builtin ruby interpreter you can do the next: >
+To find out does your Vim have builtin ruby interpreter you can do the next: >
     :echo has('ruby')
 <
 If output is '1' the ruby interpreter is builtin.

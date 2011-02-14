@@ -24,7 +24,7 @@ The plugin supports the next formats:
 
 The plugin requires a builtin ruby interpreter. It means that your Vim
 should be compiled with `--enable-rubyinterp` option.
-To find out does you Vim have builtin ruby interpreter you can do the next:
+To find out does your Vim have builtin ruby interpreter you can do the next:
     :echo has('ruby')
 
 If output is `1` the ruby interpreter is builtin.
@@ -47,7 +47,7 @@ I want to remind that \<Leader\> in most cases is "\\" key.
 
 ## Know bugs
 
-If you found a bug, please report it. Or better send be a pull request:)
+If you found a bug, please report it. Or better send me a pull request:)
 
 
 ## TODO
