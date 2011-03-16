@@ -60,6 +60,7 @@ If you found a bug, please report it. Or better send me a pull request:)
 
 * [Donald Ephraim Curtis](https://github.com/decurtis) - some support for OSX and Safari, fixing bugs
 * [Sung Pae](https://github.com/guns) - fixing bugs
+* [Steve Francia](https://github.com/spf13) - better OSX support
 
 
 ## License
