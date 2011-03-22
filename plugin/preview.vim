@@ -79,7 +79,11 @@ command! PreviewRonn     call s:PreviewRonn()
 
 " Default options
 if(!exists('g:PreviewBrowsers'))
-    let g:PreviewBrowsers    = 'firefox,safari,chromium-browser,epiphany,google-chrome,opera'
+    if(system("uname") =~ "Darwin")
+        let g:PreviewBrowsers    = 'open,safari,firefox,chromium-browser,epiphany,google-chrome,opera'
+    else
+        let g:PreviewBrowsers    = 'firefox,safari,chromium-browser,epiphany,google-chrome,opera'
+    endif
 endif
 if(!exists('g:PreviewCSSPath'))
     let g:PreviewCSSPath     = ''

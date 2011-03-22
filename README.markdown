@@ -54,6 +54,7 @@ If you found a bug, please report it. Or better send me a pull request:)
 
 * Make more unique names for temporary files than just base name ending with `.html`. There should be `vim_preview` prefix, PID of Vim and number of buffer to guarantee avoiding conflicts.
 * Add ability to use alternative gems for processing markdown and other formats.
+* Handle exception when 'rubygems' is not found.
 
 
 ## Credits

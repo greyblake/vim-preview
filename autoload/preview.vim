@@ -88,9 +88,6 @@ class Preview
     end
   end
   
-  # Syntax for Ronn::Document.new is different as it expects (content) to be a file
-  # TODO: Work out how to read in a string.
-
   def show_ronn
     return unless load_dependencies(:ronn)
     show_with(:browser) do
@@ -99,6 +96,7 @@ class Preview
     end
   end
   
+
   private
 
   # TODO: handle errors when app can't be opened
