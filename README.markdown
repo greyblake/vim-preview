@@ -61,7 +61,7 @@ If you found a bug, please report it. Or better send me a pull request:)
 
 * [Donald Ephraim Curtis](https://github.com/decurtis) - some support for OSX and Safari, fixing bugs
 * [Sung Pae](https://github.com/guns) - fixing bugs
-* [rdark] (https://github.com/rdark) - support for ronn file format
+* [rdark](https://github.com/rdark) - support for ronn file format
 
 
 ## License
