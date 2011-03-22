@@ -98,7 +98,7 @@ if(!exists('g:PreviewRdocExt'))
     let g:PreviewRdocExt     = 'rdoc'
 endif
 if(!exists('g:PreviewHtmlExt'))
-    let g:PreviewHtmlExt     = 'html,htm'
+    let g:PreviewHtmlExt     = 'html,htm,xht,xhtm,xhtml'
 endif
 if(!exists('g:PreviewRonnExt'))
     let g:PreviewRonnExt     = 'ronn'
