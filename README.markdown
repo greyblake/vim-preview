@@ -18,6 +18,7 @@ The plugin supports the next formats:
 * textile - depends on `RedCloth` ruby gem
 * html(htm)
 * ronn - depends on `ronn` ruby gem
+* reStructuredText(rst) - depends on `RbST` ruby gem and `rst2html` system util
 
 
 ## Dependencies
@@ -31,6 +32,9 @@ If output is `1` the ruby interpreter is builtin.
 
 The second thing you should verify is that you have installed all necessary 
 ruby gems. Please see "Supported Formats" section to find out what gems you need.
+
+For reStructuredText(rst) format except `RbST` ruby gem you also need `rst2html`.
+To get `rst2html` util you probably should install `python-docutils` package. Otherwise PreviewRst vim command will show empty html file.
 
 
 ## Installation

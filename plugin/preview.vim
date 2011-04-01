@@ -2,7 +2,7 @@
 " File:        preview.vim
 " Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
 " Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
-" Version:     0.6
+" Version:     0.7
 " Homepage:    http://github.com/greyblake/vim-preview
 " License:     GPLv2+ -- look it up.
 " Copyright:   Copyright (C) 2010-2011 Sergey Potapov (aka Blake)
@@ -69,6 +69,12 @@ function! s:PreviewRonn()
     endif
 endfunction
 
+function! s:PreviewRst()
+    if(s:PreviewVerifyRuby())
+        call preview#show_rst()
+    endif
+endfunction
+
 " Commands
 command! Preview         call s:Preview()
 command! PreviewMarkdown call s:PreviewMarkdown()
@@ -76,6 +82,7 @@ command! PreviewTextile  call s:PreviewTextile()
 command! PreviewRdoc     call s:PreviewRdoc()
 command! PreviewHtml     call s:PreviewHtml()
 command! PreviewRonn     call s:PreviewRonn()
+command! PreviewRst      call s:PreviewRst()
 
 " Default options
 if(!exists('g:PreviewBrowsers'))
@@ -102,6 +109,9 @@ if(!exists('g:PreviewHtmlExt'))
 endif
 if(!exists('g:PreviewRonnExt'))
     let g:PreviewRonnExt     = 'ronn'
+endif
+if(!exists('g:PreviewRstExt'))
+    let g:PreviewRstExt      = 'rst,reStructuredText,restructuredtext'
 endif
 
 " Default mapping
