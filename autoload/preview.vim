@@ -2,7 +2,7 @@
 " File:        preview.vim
 " Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
 " Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
-" Version:     0.5
+" Version:     0.7
 " Homepage:    http://github.com/greyblake/vim-preview
 " License:     GPLv2+ -- look it up.
 " Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
@@ -59,7 +59,8 @@ class Preview
     :textile_ext  => "g:PreviewTextileExt",
     :rdoc_ext     => "g:PreviewRdocExt",
     :ronn_ext     => "g:PreviewRonnExt",
-    :html_ext     => "g:PreviewHtmlExt"
+    :html_ext     => "g:PreviewHtmlExt",
+    :rst_ext      => "g:PreviewRstExt"
   }
 
   DEPENDECIES = {
@@ -67,7 +68,8 @@ class Preview
     :markdown => {:gem => 'bluecloth'    , :require => 'bluecloth'      },
     :textile  => {:gem => 'RedCloth'     , :require => 'redcloth'       },
     :rdoc     => {:gem => 'github-markup', :require => 'github/markup'  },
-    :ronn     => {:gem => 'ronn'         , :require => 'ronn'           }
+    :ronn     => {:gem => 'ronn'         , :require => 'ronn'           },
+    :rst      => {:gem => 'RbST'         , :require => 'rbst'           }
   }
 
   def show
@@ -115,6 +117,13 @@ class Preview
     show_with(:browser) do
       tmp_file = Tempfile.new(@base_name + ".ronn"){|f| f.write(content)}
       wrap_html Ronn::Document.new(tmp_file.path).to_html
+    end
+  end
+
+  def show_rst
+    return unless load_dependencies(:rst)
+    show_with(:browser) do
+      wrap_html RbST.new(content).to_html
     end
   end
   
@@ -328,6 +337,13 @@ ruby << END_OF_RUBY
 END_OF_RUBY
 endfunction
 
+function! preview#show_html()
+call s:init()
+ruby << END_OF_RUBY
+    Preview.instance.show_html
+END_OF_RUBY
+endfunction
+
 function! preview#show_ronn()
 call s:init()
 ruby << END_OF_RUBY
@@ -335,9 +351,9 @@ ruby << END_OF_RUBY
 END_OF_RUBY
 endfunction
 
-function! preview#show_html()
+function! preview#show_rst()
 call s:init()
 ruby << END_OF_RUBY
-    Preview.instance.show_html
+    Preview.instance.show_rst
 END_OF_RUBY
 endfunction
