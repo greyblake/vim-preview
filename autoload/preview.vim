@@ -29,6 +29,7 @@ require 'singleton'
 require 'tempfile'
 require 'rubygems'
 require 'shellwords'
+require 'digest/md5'
 
 class Preview
   include Singleton
@@ -85,11 +86,11 @@ class Preview
 
   def show_textile
     return unless load_dependencies(:textile)
-    show_with(:browser) do 
+    show_with(:browser) do
       wrap_html RedCloth.new(content).to_html
     end
   end
-  
+
   def show_ronn
     return unless load_dependencies(:ronn)
     show_with(:browser) do
@@ -104,7 +105,7 @@ class Preview
       wrap_html RbST.new(content).to_html
     end
   end
-  
+
 
   private
 
@@ -130,7 +131,7 @@ class Preview
 
   def update_fnames
     fname = VIM::Buffer.current.name
-    @base_name = File.basename(fname)
+    @base_name = File.basename(fname) ||  Time.now.to_s
     @ftype = fname[/\.([^.]+)$/, 1]
   end
 
@@ -143,7 +144,7 @@ class Preview
     when :browser
       :browsers
     else
-      raise "Undefined application type #{type}" 
+      raise "Undefined application type #{type}"
     end
   end
 
@@ -152,7 +153,7 @@ class Preview
   end
 
   def tmp_write(ext, data)
-    tmp = File.open(File.join(Dir::tmpdir, [@base_name,ext].join('.')), 'w')
+    tmp = File.open(File.join(Dir::tmpdir, [Digest::MD5.hexdigest(@base_name || Time.now.to_s),ext].join('.')), 'w')
     #tmp = Tempfile.new(@base_name)
     tmp.write(data)
     tmp.close
@@ -191,7 +192,7 @@ class Preview
     if option(:css_path).empty?
       %Q(<style type="text/css">#{css}</style>)
     else
-      %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />) 
+      %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />)
     end
   end
 
