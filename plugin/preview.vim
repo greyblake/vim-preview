@@ -38,51 +38,19 @@ function! s:Preview()
         call preview#show()
     endif
 endfunction
-
-function! s:PreviewMarkdown()
-    if(s:PreviewVerifyRuby())
-        call preview#show_markdown()
-    endif
-endfunction
-
-function! s:PreviewTextile()
-    if(s:PreviewVerifyRuby())
-        call preview#show_textile()
-    endif
-endfunction
-
-function! s:PreviewRdoc()
-    if(s:PreviewVerifyRuby())
-        call preview#show_rdoc()
-    endif
-endfunction
-
-function! s:PreviewHtml()
-    if(s:PreviewVerifyRuby())
-        call preview#show_html()
-    endif
-endfunction
-
-function! s:PreviewRonn()
-    if(s:PreviewVerifyRuby())
-        call preview#show_ronn()
-    endif
-endfunction
-
-function! s:PreviewRst()
-    if(s:PreviewVerifyRuby())
-        call preview#show_rst()
-    endif
-endfunction
-
-" Commands
 command! Preview         call s:Preview()
-command! PreviewMarkdown call s:PreviewMarkdown()
-command! PreviewTextile  call s:PreviewTextile()
-command! PreviewRdoc     call s:PreviewRdoc()
-command! PreviewHtml     call s:PreviewHtml()
-command! PreviewRonn     call s:PreviewRonn()
-command! PreviewRst      call s:PreviewRst()
+
+
+"define commands: PreviewMarkdown, PreviewTextile, PreviewRdoc, PreviewHtml, PreviewRonn, PreviewRst     
+let formats = ['Markdown', 'Textile', 'Rdoc', 'Html', 'Ronn', 'Rst']
+for format in formats
+    let com='Preview' . format
+    let func='preview#show_' . tolower(format)
+    exe "function! s:" . com . "()\n if(s:PreviewVerifyRuby())\n call " . func . "()\n endif\n endfunction\n"
+    exe "command! " . com . " call s:" . com . "()"
+endfor
+
+
 
 " Default options
 if(!exists('g:PreviewBrowsers'))
