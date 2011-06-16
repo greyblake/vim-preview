@@ -23,6 +23,11 @@
 "              MA 02111-1307 USA
 " ============================================================================
 
+" To keep the plugin from being loaded more than once
+if exists("loaded_preview")
+    finish
+endif
+let loaded_preview = 1
 
 function s:PreviewVerifyRuby()
     if has('ruby')
