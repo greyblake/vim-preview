@@ -18,6 +18,7 @@ The plugin supports the next formats:
 * textile - depends on `RedCloth` ruby gem
 * html(htm)
 * ronn - depends on `ronn` ruby gem
+* reStructuredText(rst) - depends on `RbST` ruby gem and `rst2html` system util
 
 
 ## Dependencies
@@ -31,6 +32,9 @@ If output is `1` the ruby interpreter is builtin.
 
 The second thing you should verify is that you have installed all necessary 
 ruby gems. Please see "Supported Formats" section to find out what gems you need.
+
+For reStructuredText(rst) format except `RbST` ruby gem you also need `rst2html`.
+To get `rst2html` util you probably should install `python-docutils` package. Otherwise PreviewRst vim command will show empty html file.
 
 
 ## Installation
@@ -54,13 +58,15 @@ If you found a bug, please report it. Or better send me a pull request:)
 
 * Make more unique names for temporary files than just base name ending with `.html`. There should be `vim_preview` prefix, PID of Vim and number of buffer to guarantee avoiding conflicts.
 * Add ability to use alternative gems for processing markdown and other formats.
+* Handle exception when 'rubygems' is not found.
 
 
 ## Credits
 
 * [Donald Ephraim Curtis](https://github.com/decurtis) - some support for OSX and Safari, fixing bugs
 * [Sung Pae](https://github.com/guns) - fixing bugs
-* [Steve Francia](https://github.com/spf13) - better OSX support
+* [Steve Francia](https://github.com/spf13) - fixing bugs
+* [Rdark](https://github.com/rdark) - support for ronn file format
 
 
 ## License
