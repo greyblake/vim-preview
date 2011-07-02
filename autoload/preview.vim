@@ -2,10 +2,10 @@
 " File:        preview.vim
 " Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
 " Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
-" Version:     0.7
+" Version:     0.5
 " Homepage:    http://github.com/greyblake/vim-preview
 " License:     GPLv2+ -- look it up.
-" Copyright:   Copyright (C) 2010-2011 Sergey Potapov (aka Blake)
+" Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
 "
 "              This program is free software; you can redistribute it and/or
 "              modify it under the terms of the GNU General Public License as
@@ -29,7 +29,6 @@ require 'singleton'
 require 'tempfile'
 require 'rubygems'
 require 'shellwords'
-require 'digest/md5'
 
 class Preview
   include Singleton
@@ -41,8 +40,7 @@ class Preview
     :textile_ext  => "g:PreviewTextileExt",
     :rdoc_ext     => "g:PreviewRdocExt",
     :ronn_ext     => "g:PreviewRonnExt",
-    :html_ext     => "g:PreviewHtmlExt",
-    :rst_ext      => "g:PreviewRstExt"
+    :html_ext     => "g:PreviewHtmlExt"
   }
 
   DEPENDECIES = {
@@ -50,8 +48,7 @@ class Preview
     :markdown => {:gem => 'bluecloth'    , :require => 'bluecloth'      },
     :textile  => {:gem => 'RedCloth'     , :require => 'redcloth'       },
     :rdoc     => {:gem => 'github-markup', :require => 'github/markup'  },
-    :ronn     => {:gem => 'ronn'         , :require => 'ronn'           },
-    :rst      => {:gem => 'RbST'         , :require => 'rbst'           }
+    :ronn     => {:gem => 'ronn'         , :require => 'ronn'           }
   }
 
   def show
@@ -86,10 +83,13 @@ class Preview
 
   def show_textile
     return unless load_dependencies(:textile)
-    show_with(:browser) do
+    show_with(:browser) do 
       wrap_html RedCloth.new(content).to_html
     end
   end
+  
+  # Syntax for Ronn::Document.new is different as it expects (content) to be a file
+  # TODO: Work out how to read in a string.
 
   def show_ronn
     return unless load_dependencies(:ronn)
@@ -98,15 +98,7 @@ class Preview
       wrap_html Ronn::Document.new(tmp_file.path).to_html
     end
   end
-
-  def show_rst
-    return unless load_dependencies(:rst)
-    show_with(:browser) do
-      wrap_html RbST.new(content).to_html
-    end
-  end
-
-
+  
   private
 
   # TODO: handle errors when app can't be opened
@@ -131,7 +123,7 @@ class Preview
 
   def update_fnames
     fname = VIM::Buffer.current.name
-    @base_name = File.basename(fname) ||  Time.now.to_s
+    @base_name = File.basename(fname)
     @ftype = fname[/\.([^.]+)$/, 1]
   end
 
@@ -144,7 +136,7 @@ class Preview
     when :browser
       :browsers
     else
-      raise "Undefined application type #{type}"
+      raise "Undefined application type #{type}" 
     end
   end
 
@@ -153,7 +145,7 @@ class Preview
   end
 
   def tmp_write(ext, data)
-    tmp = File.open(File.join(Dir::tmpdir, [Digest::MD5.hexdigest(@base_name || Time.now.to_s),ext].join('.')), 'w')
+    tmp = File.open(File.join(Dir::tmpdir, [@base_name,ext].join('.')), 'w')
     #tmp = Tempfile.new(@base_name)
     tmp.write(data)
     tmp.close
@@ -192,7 +184,7 @@ class Preview
     if option(:css_path).empty?
       %Q(<style type="text/css">#{css}</style>)
     else
-      %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />)
+      %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />) 
     end
   end
 
@@ -287,13 +279,6 @@ ruby << END_OF_RUBY
 END_OF_RUBY
 endfunction
 
-function! preview#show_html()
-call s:init()
-ruby << END_OF_RUBY
-    Preview.instance.show_html
-END_OF_RUBY
-endfunction
-
 function! preview#show_ronn()
 call s:init()
 ruby << END_OF_RUBY
@@ -301,9 +286,9 @@ ruby << END_OF_RUBY
 END_OF_RUBY
 endfunction
 
-function! preview#show_rst()
+function! preview#show_html()
 call s:init()
 ruby << END_OF_RUBY
-    Preview.instance.show_rst
+    Preview.instance.show_html
 END_OF_RUBY
 endfunction
