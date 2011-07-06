@@ -124,6 +124,7 @@ class Preview
   def update_fnames
     fname = VIM::Buffer.current.name
     @base_name = File.basename(fname)
+    @base_path = fname.gsub(@base_name, "")
     @ftype = fname[/\.([^.]+)$/, 1]
   end
 
@@ -170,6 +171,7 @@ class Preview
         <head>
           <title>#{@base_name}</title>
           #{css_tag}
+          #{base_tag}
         </head>
         <body>
           <div id="main-container">
@@ -186,6 +188,10 @@ class Preview
     else
       %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />) 
     end
+  end
+
+  def base_tag
+    %Q{<base href="file://localhost/#{@base_path}" />}
   end
 
   def option(name)
