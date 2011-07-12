@@ -27,6 +27,7 @@ function! s:load()
 ruby << END_OF_RUBY
 require 'singleton'
 require 'tempfile'
+require 'tmpdir'
 require 'rubygems'
 require 'shellwords'
 
