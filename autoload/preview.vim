@@ -23,6 +23,24 @@
 "              MA 02111-1307 USA
 " ============================================================================
 
+
+
+
+" A hack to fork a process since ruby1.9 has a bug
+function! s:PreviewPythonSpawn(app, args)
+    if has('python')
+        python <<PYTH
+import os
+app  = vim.eval('a:app')
+args = tuple(vim.eval('a:args '))
+os.spawnv(os.P_WAIT, app, (app,) + args)
+PYTH
+    else
+        echo "Can't preview. Seems you're using ruby1.9 and don't have a python installed"
+    endif
+endfunction
+
+
 function! s:load()
 ruby << END_OF_RUBY
 require 'singleton'
@@ -104,22 +122,46 @@ class Preview
 
   # TODO: handle errors when app can't be opened
   def show_with(app_type, ext="html")
-    path = tmp_write(ext, yield)
-    app = get_apps_by_type(app_type).find{|app| system("which #{app.split()[0]} &> /dev/null")}
-    if app
-      # double fork to avoid zombies
-      child = fork do
-        grandchild = fork do
-          [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
-          exec *(app.shellsplit << path)
-        end
-        Process.detach grandchild
+    fpath = tmp_write(ext, yield)
+    app = get_apps_by_type(app_type).find{|app| which(app.split()[0]) }
+    app_path = which(app.split()[0])
+    args = app.shellsplit()[1..-1] << fpath
+    if app_path
+      begin
+        ruby_spawn(app_path, args)
+      rescue NoMethodError => err
+        python_spawn(app_path, args)
       end
-      # child terminates quickly, so block and reap
-      Process.wait child
     else
       error "any of apllications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
     end
+  end
+
+  def which(cmd)
+    ENV['PATH'].split(':').each do |dir|
+      fpath = File.join(dir, cmd)
+      return fpath if File.executable?(fpath)
+    end
+    false
+  end
+  
+  def ruby_spawn(app, args)
+    # double fork to avoid zombies
+    child = fork do
+      grandchild = fork do
+        [STDOUT, STDERR].each { |io| io.reopen("/dev/null", "w") }
+        exec app, *args
+      end
+      Process.detach grandchild
+    end
+    # child terminates quickly, so block and reap
+    Process.wait child
+  end
+
+  def python_spawn(app, args)
+    args_str = args.map{|a| "'#{a}'"}.join(',')
+    params = "'#{app}', [#{args_str}]"
+    VIM.command "call s:PreviewPythonSpawn(#{params})"
   end
 
   def update_fnames
