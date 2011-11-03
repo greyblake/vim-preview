@@ -2,10 +2,10 @@
 " File:        preview.vim
 " Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
 " Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
-" Version:     0.7
+" Version:     0.8
 " Homepage:    http://github.com/greyblake/vim-preview
 " License:     GPLv2+ -- look it up.
-" Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
+" Copyright:   Copyright (C) 2010-2011 Sergey Potapov (aka Blake)
 "
 "              This program is free software; you can redistribute it and/or
 "              modify it under the terms of the GNU General Public License as

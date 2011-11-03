@@ -67,6 +67,7 @@ If you found a bug, please report it. Or better send me a pull request:)
 * [Sung Pae](https://github.com/guns) - fixing bugs
 * [Steve Francia](https://github.com/spf13) - fixing bugs
 * [Rdark](https://github.com/rdark) - support for ronn file format
+* [Bertrand Cachet](https://github.com/bcachet) - return RST back
 
 
 ## License
