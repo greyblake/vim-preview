@@ -1,11 +1,11 @@
-*preview.txt*	For Vim version 7.3.	Last Change: 2010 Nov 29
+*preview.txt*	For Vim version 7.3.	Last Change: 2011 Nov 4
 
 Description: Vim global plugin to preview markup files(markdown,rdoc,textile)
 Author:      Sergey Potapov (aka Blake) <blake131313 AT gmail DOT com>
-Version:     0.5
+Version:     0.8
 Homepage:    http://github.com/greyblake/vim-preview
 License:     GPLv2+ -- look it up.
-Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
+Copyright:   Copyright (C) 2010-2011 Sergey Potapov (aka Blake)
 
              This program is free software; you can redistribute it and/or
              modify it under the terms of the GNU General Public License as
@@ -37,6 +37,7 @@ Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
 	5.5 PreviewRdocExt ................... |PreviewRdocExt|
 	5.6 PreviewHtmlExt ................... |PreviewHtmlExt|
         5.7 PreviewRonnExt ................... |PreviewRonnExt|
+        5.8 PreviewRstExt .................... |PreviewRstExt|
     6. Commands .............................. |PreviewCommands|
 	6.1 Preview .......................... |Preview|
 	6.2 PreviewMarkdown .................. |PreviewMarkdown|
@@ -44,6 +45,7 @@ Copyright:   Copyright (C) 2010 Sergey Potapov (aka Blake)
 	6.4 PreviewRdoc ...................... |PreviewRdoc|
 	6.5 PreviewHtml ...................... |PreviewHtml|
         6.6 PreviewRonn ...................... |PreviewRonn|
+        6.7 PreviewRst ....................... |PreviewRst|
     7. Mapping ............................... |PreviewMapping|
     8. Known Bugs ............................ |PreviewBugs|
     9. Credits ............................... |PreviewCredits|
@@ -66,6 +68,8 @@ The plugin supports the next formats:
     * rdoc                                 depends on 'github-markup' ruby gem
     * textile                              depends on 'RedCloth' ruby gem
     * ronn                                 depends on 'ronn' ruby gem
+    * reStructuredText(rst)                depends on 'RbSt' ruby gem and
+                                           rst2html util
     * html(htm)
 
 
@@ -81,6 +85,10 @@ If output is '1' the ruby interpreter is builtin.
 
 The second thing you should verify is that you have installed all necessary 
 ruby gems. Please see |PreviewFormats| section to find out what gems you need.
+
+For reStructuredText(rst) format except RbST ruby gem you also need rst2html.
+To get rst2html util you probably should install python-docutils package.
+Otherwise PreviewRst vim command will show empty html file.
 
 
 ==============================================================================
@@ -143,6 +151,13 @@ Default: html,htm
 Specifies file extensions separated by comma which should be handled as ronn.
 Default: ronn
 
+------------------------------------------------------------------------------
+5.8 g:PreviewRstExt                                           *PreviewRstExt*
+
+Specifies file extensions separated by comma which should be handled as
+reStructuredText.
+Default: rst
+
 
 ==============================================================================
 6. Commands                                                  *PreviewCommands*
@@ -182,6 +197,11 @@ Preview current file as html. File will be opened without any converting.
 
 Preview current file as ronn.
 
+------------------------------------------------------------------------------
+6.7 PreviewRst                                                    *PreviewRst*
+
+Preview current file as reStructuredText.
+
 
 ==============================================================================
 7. Mapping                                                    *PreviewMapping*
@@ -208,6 +228,7 @@ If you found other bugs please report it.  See |PreviewContact| for a contact.
 
     * Donald Ephraim Curtis - some support for OSX and Safari, fixing bugs
     * Sung Pae - fixing bugs
+    * Rdark - support for ronn file format
 
 
 ==============================================================================
