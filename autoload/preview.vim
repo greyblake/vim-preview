@@ -66,7 +66,10 @@ class Preview
         return
       end
     end
-    error "don't know how to handle .#{@ftype} format"
+    error "don't know how to handle .#{filetype} format"
+  rescue Exception => error
+    puts "#{error.class}: #{error.message}"
+    puts error.backtrace
   end
 
   def show_markdown
@@ -89,11 +92,11 @@ class Preview
 
   def show_textile
     return unless load_dependencies(:textile)
-    show_with(:browser) do 
+    show_with(:browser) do
       wrap_html RedCloth.new(content).to_html
     end
   end
-  
+
   # Syntax for Ronn::Document.new is different as it expects (content) to be a file
   # TODO: Work out how to read in a string.
 
@@ -111,7 +114,7 @@ class Preview
       wrap_html RbST.new(content).to_html
     end
   end
-  
+
   private
 
   # TODO: handle errors when app can't be opened
@@ -136,12 +139,11 @@ class Preview
     end
     false
   end
-  
+
   def update_fnames
-    fname = VIM::Buffer.current.name
-    @base_name = File.basename(fname)
-    @base_path = fname.gsub(@base_name, "")
-    @ftype = fname[/\.([^.]+)$/, 1]
+    @filename = VIM::Buffer.current.name || Time.now.to_i.to_s
+    @base_name = File.basename(@filename)
+    @base_path = @filename.gsub(@base_name, "")
   end
 
   def get_apps_by_type(type)
@@ -153,12 +155,19 @@ class Preview
     when :browser
       :browsers
     else
-      raise "Undefined application type #{type}" 
+      raise "Undefined application type #{type}"
     end
   end
 
   def exts_match?(exts)
-    exts.find{|ext| ext.downcase == @ftype.downcase}
+    exts.find{|ext| ext.downcase == filetype.downcase}
+  end
+
+  def filetype
+    update_fnames
+    from_option = VIM.evaluate("&filetype")
+    from_filename = @filename[/\.([^.]+)$/, 1]
+    from_option.nil? ? from_filename : from_option
   end
 
   def tmp_write(ext, data)
@@ -202,7 +211,7 @@ class Preview
     if option(:css_path).empty?
       %Q(<style type="text/css">#{css}</style>)
     else
-      %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />) 
+      %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />)
     end
   end
 
