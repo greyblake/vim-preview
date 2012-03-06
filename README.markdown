@@ -2,7 +2,7 @@
 by Sergey Potapov (aka Blake)
 
 
-## Intro 
+## Intro
 
 Preview plugin is a tool developed to help you to preview markup files such as
 .markdown, .rdoc, .textile and .html when you are editing them. It builds
@@ -30,7 +30,7 @@ To find out does your Vim have builtin ruby interpreter you can do the next:
 
 If output is `1` the ruby interpreter is builtin.
 
-The second thing you should verify is that you have installed all necessary 
+The second thing you should verify is that you have installed all necessary
 ruby gems. Please see "Supported Formats" section to find out what gems you need.
 
 For reStructuredText(rst) format except `RbST` ruby gem you also need `rst2html`.
@@ -65,11 +65,13 @@ If you found a bug, please report it. Or better send me a pull request:)
 
 ## Credits
 
+* [Potapov Sergey](https://github.com/greyblake) - main developer
 * [Donald Ephraim Curtis](https://github.com/decurtis) - some support for OSX and Safari, fixing bugs
 * [Sung Pae](https://github.com/guns) - fixing bugs
 * [Steve Francia](https://github.com/spf13) - fixing bugs
 * [Rdark](https://github.com/rdark) - support for ronn file format
 * [Bertrand Cachet](https://github.com/bcachet) - return RST back
+* [Charles-Axel Dein](https://github.com/charlax) - fixing bugs
 
 
 ## License
