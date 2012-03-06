@@ -194,6 +194,7 @@ class Preview
     <<-END_OF_HTML
       <html>
         <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
           <title>#{@base_name}</title>
           #{css_tag}
           #{base_tag}
