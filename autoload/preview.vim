@@ -50,7 +50,7 @@ class Preview
 
   DEPENDECIES = {
     # :format => {:gem => 'name of gem'  , :require => 'file to require'}
-    :markdown => {:gem => 'bluecloth'    , :require => 'bluecloth'      },
+    :markdown => {:gem => 'redcarpet'    , :require => 'redcarpet'      },
     :textile  => {:gem => 'RedCloth'     , :require => 'redcloth'       },
     :rdoc     => {:gem => 'github-markup', :require => 'github/markup'  },
     :ronn     => {:gem => 'ronn'         , :require => 'ronn'           },
@@ -75,7 +75,8 @@ class Preview
   def show_markdown
     return unless load_dependencies(:markdown)
     show_with(:browser) do
-      wrap_html BlueCloth.new(content).to_html
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      wrap_html markdown.render(content)
     end
   end
 
@@ -172,7 +173,6 @@ class Preview
 
   def tmp_write(ext, data)
     tmp = File.open(File.join(Dir::tmpdir, [@base_name,ext].join('.')), 'w')
-    #tmp = Tempfile.new(@base_name)
     tmp.write(data)
     tmp.close
     tmp.path
