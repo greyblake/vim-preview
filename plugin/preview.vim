@@ -98,7 +98,7 @@ if(!exists('g:PreviewBrowsers'))
     endif
 endif
 if(!exists('g:PreviewCSSPath'))
-    let g:PreviewCSSPath     = ''
+    let g:PreviewCSSPath     = expand('<sfile>') . '/../../stylesheets/preview.css'
 endif
 if(!exists('g:PreviewMarkdownExt'))
     let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'

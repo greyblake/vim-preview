@@ -209,11 +209,7 @@ class Preview
   end
 
   def css_tag
-    if option(:css_path).empty?
-      %Q(<style type="text/css">#{css}</style>)
-    else
-      %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />)
-    end
+  %Q(<link rel="stylesheet" href="#{option(:css_path)}" type="text/css" />)
   end
 
   def base_tag
@@ -233,42 +229,6 @@ class Preview
     false
   end
 
-  def css
-    <<-END_OF_CSS
-      body{
-        background-color: #FFFFFF;
-        padding: 20px;
-        margin: 0px;
-      }
-      pre{
-        border: solid #DEDEDE 1px;
-        background-color: #F6F6F6;
-        padding: 4px;
-      }
-      code{
-        border: solid #DEDEDE 1px;
-        background-color: #F6F6F6;
-        padding: 1px;
-        font-family: monospace;
-      }
-      pre > code{
-        border: none;
-        padding: none;
-      }
-      blockquote{
-        border: dashed #AEAEAE 1px;
-        background-color: #F6F6F6;
-        padding: 4px 10px 4px 10px;
-        font-family: monospace;
-      }
-      div#main-container{
-        background-color: #F2F2F2;
-        padding: 20px;
-        margin: 0px;
-        border: solid #D0D0D0 1px;
-      }
-    END_OF_CSS
-  end
 end
 END_OF_RUBY
 endfunction
