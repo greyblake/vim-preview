@@ -25,6 +25,39 @@
 
 
 
+" Set default options
+" NOTE: +uname+ external call takes the most of the time. Because of this
+" definition of defaults was moved to autoload from plugin directory.
+if(!exists('g:PreviewBrowsers'))
+    if(system("uname") =~ "Darwin")
+        let g:PreviewBrowsers    = 'open,safari,firefox,chromium-browser,epiphany,google-chrome,opera'
+    else
+        let g:PreviewBrowsers    = 'firefox,safari,chromium-browser,epiphany,google-chrome,opera'
+    endif
+endif
+if(!exists('g:PreviewCSSPath'))
+    let g:PreviewCSSPath     = expand('<sfile>') . '/../../stylesheets/preview.css'
+endif
+if(!exists('g:PreviewMarkdownExt'))
+    let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'
+endif
+if(!exists('g:PreviewTextileExt'))
+    let g:PreviewTextileExt  = 'textile'
+endif
+if(!exists('g:PreviewRdocExt'))
+    let g:PreviewRdocExt     = 'rdoc'
+endif
+if(!exists('g:PreviewHtmlExt'))
+    let g:PreviewHtmlExt     = 'html,htm,xht,xhtm,xhtml'
+endif
+if(!exists('g:PreviewRonnExt'))
+    let g:PreviewRonnExt     = 'ronn'
+endif
+if(!exists('g:PreviewRstExt'))
+    let g:PreviewRstExt      = 'rst,reStructuredText,restructuredtext'
+endif
+
+
 
 function! s:load()
 ruby << END_OF_RUBY
@@ -234,13 +267,13 @@ END_OF_RUBY
 endfunction
 
 
+
 function! s:init()
     if(!(exists('s:loaded') && s:loaded))
         call s:load()
         let s:loaded = 1
     endif
 endfunction
-
 
 
 function! preview#show()
