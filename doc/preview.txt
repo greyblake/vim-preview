@@ -30,8 +30,8 @@ Copyright:   Copyright (C) 2010-2011 Sergey Potapov (aka Blake)
     3. Supported Formats ..................... |PreviewFormats|
     4. Dependencies .......................... |PreviewDeps|
     5. Configurations ........................ |PreviewConfig|
-	5.1 PreviewBrowsers .................. |PreviewBrowsers| 
-	5.2 PreviewCSSPath ................... |PreviewCSSPath| 
+	5.1 PreviewBrowsers .................. |PreviewBrowsers|
+	5.2 PreviewCSSPath ................... |PreviewCSSPath|
 	5.3 PreviewMarkdownExt ............... |PreviewMarkdownExt|
 	5.4 PreviewTextileExt ................ |PreviewTextileExt|
 	5.5 PreviewRdocExt ................... |PreviewRdocExt|
@@ -64,7 +64,7 @@ html files and opens them in your browser.
 3. Supported Formats                                          *PreviewFormats*
 
 The plugin supports the next formats:
-    * markdown(md, mkd, mkdn, mdown)       depends on 'bluecloth' ruby gem
+    * markdown(md, mkd, mkdn, mdown)       depends on 'redcarpet' ruby gem
     * rdoc                                 depends on 'github-markup' ruby gem
     * textile                              depends on 'RedCloth' ruby gem
     * ronn                                 depends on 'ronn' ruby gem
@@ -83,7 +83,7 @@ To find out does your Vim have builtin ruby interpreter you can do the next: >
 <
 If output is '1' the ruby interpreter is builtin.
 
-The second thing you should verify is that you have installed all necessary 
+The second thing you should verify is that you have installed all necessary
 ruby gems. Please see |PreviewFormats| section to find out what gems you need.
 
 For reStructuredText(rst) format except RbST ruby gem you also need rst2html.
@@ -106,7 +106,7 @@ you vimrc file. For example: >
 Set browsers what will be used to open generated html file. Values should be
 comma separated. The highest priority has the first value.
 For example: >
-    let g:PreviewBrowsers='safari,firefox' 
+    let g:PreviewBrowsers='safari,firefox'
 <
 Will try to use safari first. If command 'safari' does not exist 'firefox' will
 be used.
@@ -115,7 +115,7 @@ Default: firefox,safari,chromium-browser,epiphany,google-chrome,opera
 ------------------------------------------------------------------------------
 5.2 g:PreviewCSSPath                                          *PreviewCSSPath*
 
-Set a path to user's CSS file. If it's empty the plugin will use builtin 
+Set a path to user's CSS file. If it's empty the plugin will use builtin
 styles.
 Default: empty
 

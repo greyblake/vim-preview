@@ -13,7 +13,7 @@ html files and opens them in your browser.
 
 The plugin supports the next formats:
 
-* markdown(md, mkd, mkdn, mdown) - depends on `bluecloth` ruby gem
+* markdown(md, mkd, mkdn, mdown) - depends on `redcarpet` ruby gem
 * rdoc - depends on `github-markup` ruby gem
 * textile - depends on `RedCloth` ruby gem
 * html(htm)
