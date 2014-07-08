@@ -162,7 +162,7 @@ class Preview
       VIM.command "call system('#{cmd}')"
       VIM.command "redraw"
     else
-      error "any of apllications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
+      error "any of applications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
     end
   end
 
