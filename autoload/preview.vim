@@ -80,9 +80,13 @@ class Preview
   }
 
   OPTIONS = {
-    :browsers     => "g:PreviewBrowsers",
-    :css_path     => "g:PreviewCSSPath"
+    :browsers        => "g:PreviewBrowsers",
+    :css_path        => "g:PreviewCSSPath",
+    :markdown_fences => "g:PreviewMarkdownFences"
   }.merge!(EXT_OPTIONS)
+
+  # defines the options that can be overridden with a buffer-local version
+  BUFFER_OPTIONS = [:markdown_fences]
 
   DEPENDECIES = {
     # :format => {:gem => 'name of gem'  , :require => 'file to require'}
@@ -110,7 +114,11 @@ class Preview
   def show_markdown
     return unless load_dependencies(:markdown)
     show_with(:browser) do
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :tables => true, :autolink => true)
+      exts = { :tables => true, :autolink => true }
+      if has_option(:markdown_fences) and option(:markdown_fences).to_i != 0
+        exts[:fenced_code_blocks] = true
+      end
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, extensinos = exts)
       wrap_html markdown.render(content)
     end
   end
@@ -253,12 +261,22 @@ class Preview
 
   def option(name)
     raise "Unknown option #{name.inspect}" unless OPTIONS.keys.include?(name)
-    VIM.evaluate(OPTIONS[name])
+    var = OPTIONS[name]
+    if BUFFER_OPTIONS.include?(name)
+      bvar = "b:" + var[/^g:(.*)$/, 1]
+      var = bvar if VIM.evaluate("exists('#{bvar}')") != 0
+    end
+    VIM.evaluate(var)
   end
 
   def has_option(name)
     raise "Unknown option #{name.inspect}" unless OPTIONS.keys.include?(name)
-    VIM.evaluate("exists('#{OPTIONS[name]}')") != 0
+    var = OPTIONS[name]
+    if BUFFER_OPTIONS.include?(name)
+      bvar = "b:" + var[/^g:(.*)$/, 1]
+      return true if VIM.evaluate("exists('#{bvar}')") != 0
+    end
+    VIM.evaluate("exists('#{var}')") != 0
   end
 
   def load_dependencies(format)

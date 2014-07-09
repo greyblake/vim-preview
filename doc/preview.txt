@@ -33,11 +33,12 @@ Copyright:   Copyright (C) 2010-2011 Sergey Potapov (aka Blake)
 	5.1 PreviewBrowsers .................. |PreviewBrowsers|
 	5.2 PreviewCSSPath ................... |PreviewCSSPath|
 	5.3 PreviewMarkdownExt ............... |PreviewMarkdownExt|
-	5.4 PreviewTextileExt ................ |PreviewTextileExt|
-	5.5 PreviewRdocExt ................... |PreviewRdocExt|
-	5.6 PreviewHtmlExt ................... |PreviewHtmlExt|
-        5.7 PreviewRonnExt ................... |PreviewRonnExt|
-        5.8 PreviewRstExt .................... |PreviewRstExt|
+	5.4 PreviewMarkdownFences ............ |PreviewMarkdownFences|
+	5.5 PreviewTextileExt ................ |PreviewTextileExt|
+	5.6 PreviewRdocExt ................... |PreviewRdocExt|
+	5.7 PreviewHtmlExt ................... |PreviewHtmlExt|
+        5.8 PreviewRonnExt ................... |PreviewRonnExt|
+        5.9 PreviewRstExt .................... |PreviewRstExt|
     6. Commands .............................. |PreviewCommands|
 	6.1 Preview .......................... |Preview|
 	6.2 PreviewMarkdown .................. |PreviewMarkdown|
@@ -127,32 +128,39 @@ markdown.
 Default: markdown,md,mkd,mkdn,mdown
 
 ------------------------------------------------------------------------------
-5.4 g:PreviewTextileExt                                    *PreviewTextileExt*
+5.4 g:PreviewMarkdownFences                            *PreviewMarkdownFences*
+    b:PreviewMarkdownFences
+
+Enables support for fenced code blocks in markdown files.
+Default: 0
+
+------------------------------------------------------------------------------
+5.5 g:PreviewTextileExt                                    *PreviewTextileExt*
 
 Specifies file extensions separated by comma which should be handled as
 textile.
 Default: textile
 
 ------------------------------------------------------------------------------
-5.5 g:PreviewRdocExt                                          *PreviewRdocExt*
+5.6 g:PreviewRdocExt                                          *PreviewRdocExt*
 
 Specifies file extensions separated by comma which should be handled as rdoc.
 Default: rdoc
 
 ------------------------------------------------------------------------------
-5.6 g:PreviewHtmlExt                                          *PreviewHtmlExt*
+5.7 g:PreviewHtmlExt                                          *PreviewHtmlExt*
 
 Specifies file extensions separated by comma which should be handled as html.
 Default: html,htm
 
 ------------------------------------------------------------------------------
-5.7 g:PreviewRonnExt                                          *PreviewRonnExt*
+5.8 g:PreviewRonnExt                                          *PreviewRonnExt*
 
 Specifies file extensions separated by comma which should be handled as ronn.
 Default: ronn
 
 ------------------------------------------------------------------------------
-5.8 g:PreviewRstExt                                           *PreviewRstExt*
+5.9 g:PreviewRstExt                                           *PreviewRstExt*
 
 Specifies file extensions separated by comma which should be handled as
 reStructuredText.
