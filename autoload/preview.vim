@@ -70,16 +70,23 @@ require 'shellwords'
 class Preview
   include Singleton
 
-  OPTIONS = {
-    :browsers     => "g:PreviewBrowsers",
-    :css_path     => "g:PreviewCSSPath",
-    :markdown_ext => "g:PreviewMarkdownExt",
-    :textile_ext  => "g:PreviewTextileExt",
-    :rdoc_ext     => "g:PreviewRdocExt",
-    :ronn_ext     => "g:PreviewRonnExt",
-    :html_ext     => "g:PreviewHtmlExt",
-    :rst_ext      => "g:PreviewRstExt"
+  EXT_OPTIONS = {
+    :markdown => "g:PreviewMarkdownExt",
+    :textile  => "g:PreviewTextileExt",
+    :rdoc     => "g:PreviewRdocExt",
+    :ronn     => "g:PreviewRonnExt",
+    :html     => "g:PreviewHtmlExt",
+    :rst      => "g:PreviewRstExt"
   }
+
+  OPTIONS = {
+    :browsers        => "g:PreviewBrowsers",
+    :css_path        => "g:PreviewCSSPath",
+    :markdown_fences => "g:PreviewMarkdownFences"
+  }.merge!(EXT_OPTIONS)
+
+  # defines the options that can be overridden with a buffer-local version
+  BUFFER_OPTIONS = [:markdown_fences]
 
   DEPENDECIES = {
     # :format => {:gem => 'name of gem'  , :require => 'file to require'}
@@ -92,10 +99,9 @@ class Preview
 
   def show
     update_fnames
-    ext_opts = OPTIONS.keys.find_all{|k| k.to_s =~ /_ext$/}
-    ext_opts.each do |opt|
-      if exts_match?(option(opt).split(','))
-        send "show_" + opt.to_s[/^(.*)_ext$/, 1]
+    EXT_OPTIONS.keys.each do |opt|
+      if has_option(opt) and exts_match?(option(opt).split(','))
+        send "show_#{opt}"
         return
       end
     end
@@ -108,7 +114,11 @@ class Preview
   def show_markdown
     return unless load_dependencies(:markdown)
     show_with(:browser) do
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :tables => true, :autolink => true)
+      exts = { :tables => true, :autolink => true }
+      if has_option(:markdown_fences) and option(:markdown_fences).to_i != 0
+        exts[:fenced_code_blocks] = true
+      end
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, extensinos = exts)
       wrap_html markdown.render(content)
     end
   end
@@ -162,7 +172,7 @@ class Preview
       VIM.command "call system('#{cmd}')"
       VIM.command "redraw"
     else
-      error "any of apllications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
+      error "any of applications you specified in #{OPTIONS[app_type_to_opt(app_type)]} are not available"
     end
   end
 
@@ -251,7 +261,22 @@ class Preview
 
   def option(name)
     raise "Unknown option #{name.inspect}" unless OPTIONS.keys.include?(name)
-    VIM.evaluate(OPTIONS[name])
+    var = OPTIONS[name]
+    if BUFFER_OPTIONS.include?(name)
+      bvar = "b:" + var[/^g:(.*)$/, 1]
+      var = bvar if VIM.evaluate("exists('#{bvar}')") != 0
+    end
+    VIM.evaluate(var)
+  end
+
+  def has_option(name)
+    raise "Unknown option #{name.inspect}" unless OPTIONS.keys.include?(name)
+    var = OPTIONS[name]
+    if BUFFER_OPTIONS.include?(name)
+      bvar = "b:" + var[/^g:(.*)$/, 1]
+      return true if VIM.evaluate("exists('#{bvar}')") != 0
+    end
+    VIM.evaluate("exists('#{var}')") != 0
   end
 
   def load_dependencies(format)
