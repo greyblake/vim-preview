@@ -72,6 +72,8 @@ If you found a bug, please report it. Or better send me a pull request:)
 * [Rdark](https://github.com/rdark) - support for ronn file format
 * [Bertrand Cachet](https://github.com/bcachet) - return RST back
 * [Charles-Axel Dein](https://github.com/charlax) - fixing bugs
+* [David Arvelo](https://github.com/darvelo) - fixing bugs
+* [Kevin Ballard](https://github.com/kballard) - support for Markdown fenced code blocks
 
 
 ## License
