@@ -132,7 +132,8 @@ Default: markdown,md,mkd,mkdn,mdown
     b:PreviewMarkdownFences
 
 Enables support for fenced code blocks in markdown files.
-Default: 0
+Value 1 enables, 0 disables.
+Default: 1
 
 ------------------------------------------------------------------------------
 5.5 g:PreviewTextileExt                                    *PreviewTextileExt*

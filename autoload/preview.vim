@@ -56,6 +56,9 @@ endif
 if(!exists('g:PreviewRstExt'))
     let g:PreviewRstExt      = 'rst,reStructuredText,restructuredtext'
 endif
+if(!exists('g:PreviewMarkdownFences'))
+    let g:PreviewMarkdownFences = 1
+endif
 
 
 
