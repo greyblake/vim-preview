@@ -49,7 +49,7 @@ If you encountered this *err* when you press \<Leader\>P.
 
 You may add this piece of code to .vimrc
 
-* autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+* autocmd BufNewFile,BufRead \*.{md,mdwn,mkd,mkdn,mark\*} set filetype=markdown
 
 
 ## Usage
