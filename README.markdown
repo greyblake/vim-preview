@@ -41,6 +41,16 @@ To get `rst2html` util you probably should install `python-docutils` package. Ot
 
 To install the plugin just copy `autoload`, `plugin`, `doc` directories into your .vim directory.
 
+**attention**
+
+If you encountered this *err* when you press \<Leader\>P.
+
+* Preview: don't know how to handle .modula2 format
+
+You may add this piece of code to .vimrc
+
+* autocmd BufNewFile,BufRead \*.{md,mdwn,mkd,mkdn,mark\*} set filetype=markdown
+
 
 ## Usage
 
