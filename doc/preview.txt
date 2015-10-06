@@ -217,13 +217,13 @@ Preview current file as reStructuredText.
 
 Default mapping to preview file is <Leader>P .
 You can easy map it to other keys. For example >
-    :nmap <Leader>p :Preview<CR>
+    :nnoremap <Leader>p :Preview<CR>
 <
 Also you can map some other commands which is not mapped by default. E.g. >
-    :nmap <Leader>Pm :PreviewMarkdown<CR>
-    :nmap <Leader>Pt :PreviewTextile<CR>
-    :nmap <Leader>Pr :PreviewRdoc<CR>
-    :nmap <Leader>Ph :PreviewHtml<CR>
+    :nnoremap <Leader>Pm :PreviewMarkdown<CR>
+    :nnoremap <Leader>Pt :PreviewTextile<CR>
+    :nnoremap <Leader>Pr :PreviewRdoc<CR>
+    :nnoremap <Leader>Ph :PreviewHtml<CR>
 <
 
 ==============================================================================
