@@ -248,7 +248,7 @@ class Preview
         <body>
           <div id="main-container">
             #{body}
-          <div>
+          </div>
         </body>
       </html>
     END_OF_HTML
