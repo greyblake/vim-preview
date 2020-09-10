@@ -44,6 +44,12 @@ function! s:Preview()
     endif
 endfunction
 
+function! s:PreviewAsciidoc()
+    if(s:PreviewVerifyRuby())
+        call preview#show_asciidoc()
+    endif
+endfunction
+
 function! s:PreviewMarkdown()
     if(s:PreviewVerifyRuby())
         call preview#show_markdown()
@@ -82,6 +88,7 @@ endfunction
 
 " Commands
 command! Preview         call s:Preview()
+command! PreviewAsciidoc call s:PreviewAsciidoc()
 command! PreviewMarkdown call s:PreviewMarkdown()
 command! PreviewTextile  call s:PreviewTextile()
 command! PreviewRdoc     call s:PreviewRdoc()

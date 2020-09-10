@@ -14,6 +14,7 @@ html files and opens them in your browser.
 The plugin supports the next formats:
 
 * markdown(md, mkd, mkdn, mdown) - depends on `redcarpet` ruby gem
+* asciidoc(adoc, asciidoc) - depends on `asciidoctor` ruby gem
 * rdoc - depends on `github-markup` ruby gem
 * textile - depends on `RedCloth` ruby gem
 * html(htm)
@@ -58,7 +59,7 @@ You may add this piece of code to .vimrc
 
     autocmd BufNewFile,BufRead \*.{md,mdwn,mkd,mkdn,mark\*} set filetype=markdown
 
-
+If asciidoc files doesn't render properly, you may try to disable your browser [asciidoctor](https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/) extension.
 
 ## Know bugs
 
@@ -85,6 +86,7 @@ If you found a bug, please report it. Or better send me a pull request:)
 * [Charles-Axel Dein](https://github.com/charlax) - fixing bugs
 * [David Arvelo](https://github.com/darvelo) - fixing bugs
 * [Kevin Ballard](https://github.com/kballard) - support for Markdown fenced code blocks
+* [Leirda](https://github.com/Leirda01) - support for asciidoc file markup format
 
 
 ## License
