@@ -28,13 +28,26 @@
 " Set default options
 " NOTE: +uname+ external call takes the most of the time. Because of this
 " definition of defaults was moved to autoload from plugin directory.
-if(!exists('g:PreviewBrowsers'))
-    if(system("uname") =~ "Darwin")
-        let g:PreviewBrowsers    = 'open,safari,firefox,chromium-browser,epiphany,google-chrome,opera'
+if !exists('g:os')
+    if has("win64") || has("win32") || has("win16")
+        let g:os = 'Windows'
+    elseif system("uname") =~ 'Darwin'
+        let g:os = 'Darwin'
     else
-        let g:PreviewBrowsers    = 'firefox,safari,chromium-browser,epiphany,google-chrome,opera'
+        let g:os = 'Linux'
     endif
 endif
+
+if !exists('g:PreviewBrowsers')
+    if g:os == 'Darwin'
+        let g:PreviewBrowsers    = 'open,safari,firefox,chromium-browser,epiphany,google-chrome,opera'
+    elseif g:os == 'Linux'
+        let g:PreviewBrowsers    = 'firefox,safari,chromium-browser,epiphany,google-chrome,opera,chrome.exe'
+    elseif g:os == 'Windows'
+        let g:PreviewBrowsers    = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+    endif
+endif
+
 if(!exists('g:PreviewCSSPath'))
     let g:PreviewCSSPath     = expand('<sfile>') . '/../../stylesheets/preview.css'
 endif
@@ -85,7 +98,8 @@ class Preview
   OPTIONS = {
     :browsers        => "g:PreviewBrowsers",
     :css_path        => "g:PreviewCSSPath",
-    :markdown_fences => "g:PreviewMarkdownFences"
+    :markdown_fences => "g:PreviewMarkdownFences",
+    :os              => "g:os"
   }.merge!(EXT_OPTIONS)
 
   # defines the options that can be overridden with a buffer-local version
@@ -167,11 +181,25 @@ class Preview
   # TODO: handle errors when app can't be opened
   def show_with(app_type, ext="html")
     fpath = tmp_write(ext, yield)
-    app = get_apps_by_type(app_type).find{|app| which(app.split()[0]) }
-    app_path = which(app.split()[0])
-    args = app.shellsplit()[1..-1] << fpath
-    if app_path
-      cmd = "#{app_path} #{args.shelljoin} &"
+    os = option(:os)
+    if os == "Windows"
+      app = get_apps_by_type(app_type)[0]
+    else
+      app = get_apps_by_type(app_type).find{|app| which(app.split()[0]) }
+    end
+    if app
+      if os == "Windows"
+        app_path = app
+        app_path = "\"#{app_path}\""
+        args = [fpath]
+      else
+        app_path = which(app.split()[0])
+        args = app.shellsplit()[1..-1] << fpath
+      end
+      cmd = "#{app_path} #{args.shelljoin}"
+      if os != "Windows"
+        cmd += " &"
+      end
       VIM.command "call system('#{cmd}')"
       VIM.command "redraw"
     else
