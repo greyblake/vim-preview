@@ -51,6 +51,9 @@ endif
 if(!exists('g:PreviewCSSPath'))
     let g:PreviewCSSPath     = expand('<sfile>') . '/../../stylesheets/preview.css'
 endif
+if(!exists('g:PreviewAsciidocExt'))
+    let g:PreviewAsciidocExt = 'adoc,asciidoc'
+endif
 if(!exists('g:PreviewMarkdownExt'))
     let g:PreviewMarkdownExt = 'markdown,md,mkd,mkdn,mdown'
 endif
@@ -87,6 +90,7 @@ class Preview
   include Singleton
 
   EXT_OPTIONS = {
+    :asciidoc => "g:PreviewAsciidocExt",
     :markdown => "g:PreviewMarkdownExt",
     :textile  => "g:PreviewTextileExt",
     :rdoc     => "g:PreviewRdocExt",
@@ -107,6 +111,7 @@ class Preview
 
   DEPENDECIES = {
     # :format => {:gem => 'name of gem'  , :require => 'file to require'}
+    :asciidoc => {:gem => 'asciidoctor'  , :require => 'asciidoctor'    },
     :markdown => {:gem => 'redcarpet'    , :require => 'redcarpet'      },
     :textile  => {:gem => 'RedCloth'     , :require => 'redcloth'       },
     :rdoc     => {:gem => 'github-markup', :require => 'github/markup'  },
@@ -126,6 +131,13 @@ class Preview
   rescue Exception => error
     puts "#{error.class}: #{error.message}"
     puts error.backtrace
+  end
+
+  def show_asciidoc
+    return unless load_dependencies(:asciidoc)
+    show_with(:browser) do
+      wrap_html Asciidoctor.render(content, header_footer: true, safe: :server)
+    end
   end
 
   def show_markdown
