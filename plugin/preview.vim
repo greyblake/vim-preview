@@ -90,4 +90,4 @@ command! PreviewRonn     call s:PreviewRonn()
 command! PreviewRst      call s:PreviewRst()
 
 " Default mapping
-:nmap <Leader>P :Preview<CR>
+:nnoremap <Leader>P :Preview<CR>
